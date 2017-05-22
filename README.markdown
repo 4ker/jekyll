@@ -1,3 +1,11 @@
+Reading Tasks:
+
+-   v1.0-stable <https://github.com/4ker/jekyll/tree/v1-stable>
+-   v2.5-stable <https://github.com/4ker/jekyll/tree/stable-2-5>
+-   v3.4-stable <https://github.com/4ker/jekyll/tree/3.4-stable>
+
+---
+
 # [Jekyll](https://jekyllrb.com/)
 
 [![Gem Version](https://img.shields.io/gem/v/jekyll.svg)][ruby-gems]
