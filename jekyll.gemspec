@@ -1,3 +1,4 @@
+# 这个 spec 就是代码……
 Gem::Specification.new do |s|
   s.specification_version = 2 if s.respond_to? :specification_version=
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
@@ -52,6 +53,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('jekyll_test_plugin')
 
   # = MANIFEST =
+  # 这个用法就很赞啊！
   s.files = %w[
     CONTRIBUTING.markdown
     Gemfile
@@ -305,5 +307,6 @@ Gem::Specification.new do |s|
   ]
   # = MANIFEST =
 
+  # regexp 来过滤，filter 到 test/test_*.rb 这些测试文件
   s.test_files = s.files.select { |path| path =~ /^test\/test_.*\.rb/ }
 end

@@ -1,3 +1,8 @@
+#tzx：
+#   -   plugin 其实有一个 priority 来排序
+#   -   有 subclasses 来管理下面的 subclasses
+#   -   其他也没啥了
+
 module Jekyll
   class Plugin
     PRIORITIES = { :lowest => -100,
@@ -13,7 +18,7 @@ module Jekyll
     #
     # Returns nothing.
     def self.inherited(base)
-      subclasses << base
+      subclasses << base                # 这是一个列表……
       subclasses.sort!
     end
 
@@ -37,7 +42,7 @@ module Jekyll
       if priority && PRIORITIES.has_key?(priority)
         @priority = priority
       end
-      @priority || :normal
+      @priority || :normal              # symbol 到处可以用……
     end
 
     # Get or set the safety of this plugin. When called without an argument
@@ -49,7 +54,7 @@ module Jekyll
     # Returns the safety Boolean.
     def self.safe(safe = nil)
       if safe
-        @safe = safe
+        @safe = safe                    # 直接用 true 不就好……
       end
       @safe || false
     end
@@ -59,7 +64,7 @@ module Jekyll
     # other - The class to be compared.
     #
     # Returns -1, 0, 1.
-    def self.<=>(other)
+    def self.<=>(other)                 # 比较的时候用 PRIORITIES 来比较，PRIORITIES 是一个 Hash。
       PRIORITIES[other.priority] <=> PRIORITIES[self.priority]
     end
 
@@ -68,7 +73,7 @@ module Jekyll
     # config - The Hash of configuration options.
     #
     # Returns a new instance.
-    def initialize(config = {})
+    def initialize(config = {})         # 啊啊……soga。
       # no-op for default
     end
   end

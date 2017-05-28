@@ -1,3 +1,16 @@
+#tzx: 啥事 attr_accessor
+#
+#   -   attr_reader :name
+#   -   attr_writer :name
+#   -   两个加起来，就是 attr_acessor，这样 self 下就有 @name 这个变量了。
+#
+#   refs and see also
+#
+#   -   [What is attr_accessor in Ruby? - Stack Overflow](https://stackoverflow.com/questions/4370960/what-is-attr-accessor-in-ruby)
+#   -   [Why use Ruby's attr_accessor, attr_reader and attr_writer? - Stack Overflow](https://stackoverflow.com/questions/5046831/why-use-rubys-attr-accessor-attr-reader-and-attr-writer)
+#
+#   这个文件就是实现了一个带 level 的 logger。
+
 module Jekyll
   class Stevenson
     attr_accessor :log_level
@@ -15,7 +28,7 @@ module Jekyll
     def initialize(level = INFO)
       @log_level = level
     end
-    
+
     # Public: Print a jekyll debug message to stdout
     #
     # topic - the topic of the message, e.g. "Configuration file", "Deprecation", etc.
@@ -23,7 +36,7 @@ module Jekyll
     #
     # Returns nothing
     def debug(topic, message = nil)
-      $stdout.puts(message(topic, message)) if log_level <= DEBUG
+      $stdout.puts(message(topic, message)) if log_level <= DEBUG                       # 数字越大，越严重。$stdout，为啥这个 message 没有被 shadow？
     end
 
     # Public: Print a jekyll message to stdout
@@ -74,7 +87,7 @@ module Jekyll
     #
     # Returns the formatted message
     def message(topic, message)
-      formatted_topic(topic) + message.to_s.gsub(/\s+/, ' ')
+      formatted_topic(topic) + message.to_s.gsub(/\s+/, ' ')                #tzx：多个连续 whitespaces 变成一个。
     end
 
     # Public: Format the topic
@@ -83,7 +96,7 @@ module Jekyll
     #
     # Returns the formatted topic statement
     def formatted_topic(topic)
-      "#{topic} ".rjust(20)
+      "#{topic} ".rjust(20)                                                 #tzx：右对齐，填充空格。
     end
   end
 end

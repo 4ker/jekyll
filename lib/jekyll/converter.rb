@@ -1,3 +1,6 @@
+#tzx：
+#   -   只有一个 pygments 的前后缀的设定……
+
 module Jekyll
   class Converter < Plugin
     # Public: Get or set the pygments prefix. When an argument is specified,
@@ -28,7 +31,7 @@ module Jekyll
     #
     # Returns an initialized Converter.
     def initialize(config = {})
-      @config = config
+      @config = config                  #tzx：覆盖了原来的空函数，这里把 config 存起来了。
     end
 
     # Get the pygments prefix.

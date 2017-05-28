@@ -1,3 +1,7 @@
+#tzx：
+#   -   generate_url 可以从 @placeholder 和 模板里面拼接一个 url 字符串
+#   -   sanitize_url 很奇特，处理了 trailing /，还处理了首字符 /，如果没有的话……
+
 # Public: Methods that generate a URL for a resource such as a Post or a Page.
 #
 # Examples
@@ -26,6 +30,8 @@ module Jekyll
       @placeholders = options[:placeholders] || {}
       @permalink = options[:permalink]
 
+      #tzx:
+      #     -   这特么都行？
       if (@template || @permalink).nil?
         raise ArgumentError, "One of :template or :permalink must be supplied."
       end
@@ -35,13 +41,16 @@ module Jekyll
     #
     # Returns the String URL
     def to_s
-      sanitize_url(@permalink || generate_url)
+      sanitize_url(@permalink || generate_url)      #tzx：sanitize，无毒，如果有 permalink 就用 permalink，否则，用 generate_url
     end
 
     # Internal: Generate the URL by replacing all placeholders with their
     # respective values
     #
     # Returns the _unsanitizied_ String URL
+    #tzx：
+    #   -   这个很巧妙
+    #   -   是从 placeholder 一个个来替换原来的 template，结果就是一个 apply 了模板的字符串
     def generate_url
       @placeholders.inject(@template) do |result, token|
         result.gsub(/:#{token.first}/, token.last)
@@ -55,13 +64,13 @@ module Jekyll
       url = in_url.gsub(/\/\//, "/")
 
       # Remove every URL segment that consists solely of dots
-      url = url.split('/').reject{ |part| part =~ /^\.+$/ }.join('/')
+      url = url.split('/').reject{ |part| part =~ /^\.+$/ }.join('/')               #tzx
 
       # Append a trailing slash to the URL if the unsanitized URL had one
-      url += "/" if in_url =~ /\/$/
+      url += "/" if in_url =~ /\/$/                                                 #tzx
 
       # Always add a leading slash
-      url.gsub!(/\A([^\/])/, '/\1')
+      url.gsub!(/\A([^\/])/, '/\1')                                                 #tzx：其实没必要用 regexp 的，用 if modifier 就好
 
       url
     end

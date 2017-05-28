@@ -37,12 +37,12 @@ module Jekyll
       begin
         self.content = File.read_with_options(File.join(base, name),
                                               merged_file_read_opts(opts))
-        if self.content =~ /\A(---\s*\n.*?\n?)^(---\s*$\n?)/m
-          self.content = $POSTMATCH
-          self.data = YAML.safe_load($1)
+        if self.content =~ /\A(---\s*\n.*?\n?)^(---\s*$\n?)/m                           #tzx：m make dot match newlines
+          self.content = $POSTMATCH                                                     #tzx：好像是后面的内容
+          self.data = YAML.safe_load($1)                                                #tzx：加载文件头处的配置，RSG 推荐用  Regexp.last_match(1) 而不用 Perl 风格的 capture。
         end
       rescue SyntaxError => e
-        puts "YAML Exception reading #{File.join(base, name)}: #{e.message}"
+        puts "YAML Exception reading #{File.join(base, name)}: #{e.message}"            #tzx：Error.message
       rescue Exception => e
         puts "Error reading file #{File.join(base, name)}: #{e.message}"
       end

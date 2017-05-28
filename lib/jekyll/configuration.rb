@@ -1,13 +1,15 @@
-# encoding: UTF-8
+#tzx: 配置就是一个 Hash
+#   -   包括 source，destination，layouts，啥的
 
+# encoding: UTF-8
 module Jekyll
   class Configuration < Hash
 
     # Default options. Overridden by values in _config.yml.
     # Strings rather than symbols are used for compatibility with YAML.
     DEFAULTS = {
-      'source'        => Dir.pwd,
-      'destination'   => File.join(Dir.pwd, '_site'),
+      'source'        => Dir.pwd,                                                   # 从 Dir.pwd
+      'destination'   => File.join(Dir.pwd, '_site'),                               # 到 Dir.pwd/_site，路径的 join 用 File.join
       'plugins'       => '_plugins',
       'layouts'       => '_layouts',
       'data_source'   =>  '_data',
@@ -34,7 +36,7 @@ module Jekyll
       'baseurl'       => '/',
       'include'       => ['.htaccess'],
       'exclude'       => [],
-      'paginate_path' => '/page:num',
+      'paginate_path' => '/page:num',               # 这个是一个模板？
 
       'markdown_ext'  => 'markdown,mkd,mkdn,md',
       'textile_ext'   => 'textile',
@@ -44,7 +46,7 @@ module Jekyll
 
       'excerpt_separator' => "\n\n",
 
-      'maruku' => {
+      'maruku' => {                             # nestted hash 一个
         'fenced_code_blocks' => true,
         'use_tex'    => false,
         'use_divs'   => false,
@@ -101,7 +103,7 @@ module Jekyll
     end
 
     def safe_load_file(filename)
-      case File.extname(filename)
+      case File.extname(filename)                               # 文件后缀
       when '.toml'
         TOML.load_file(filename)
       when /\.y(a)?ml/
@@ -123,7 +125,7 @@ module Jekyll
         config_files = File.join(source(override), "_config.yml")
         @default_config_file = true
       end
-      config_files = [config_files] unless config_files.is_a? Array
+      config_files = [config_files] unless config_files.is_a? Array                 # 如果不是 Array 就转成 Array。.is_a? Array
       config_files
     end
 
@@ -159,7 +161,7 @@ module Jekyll
       begin
         files.each do |config_file|
           new_config = read_config_file(config_file)
-          configuration = configuration.deep_merge(new_config)
+          configuration = configuration.deep_merge(new_config)      # 这是 Hash 提供的……
         end
       rescue ArgumentError => err
         Jekyll.logger.warn "WARNING:", "Error reading configuration. " +
